@@ -71,9 +71,13 @@ def send_email(attachment):
     part.add_header("Content-Disposition", "attachment", filename = os.path.basename(attachment))
     message.attach(part)
 
-    text = message.as_string() """send as string"""
+    text = message.as_string() 
+    """send as string"""
+    
    
-    server = smtplib.SMTP_SSL("smtp.gmail.com", 465)"""specify the server with its parameters"""
+    server = smtplib.SMTP_SSL("smtp.gmail.com", 465)
+    """specify the server with its parameters"""
+
     server.ehlo()
     server.login(sender, password)
     server.sendmail(sender, message['To'], text)
