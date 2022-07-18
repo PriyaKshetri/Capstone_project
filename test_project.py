@@ -1,10 +1,9 @@
+import pytest
 from project import validate_email
 from project import file_to_be_sent
-from project import move_file
 
-def main():
-    test_validate_email()
-    test_file_to_be_sent()
+
+
 
 def test_validate_email():
     assert validate_email('priya123@gmail.com') == True
@@ -15,5 +14,3 @@ def test_file_to_be_sent():
 
 
 
-if __name__ == '__name__':
-    main()
