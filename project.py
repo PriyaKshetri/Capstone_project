@@ -9,7 +9,10 @@ from email import encoders
 import shutil
 
    
-
+def main():
+    x=file_to_be_sent()
+    send_email(x)
+    move_file(x)
     
 def file_to_be_sent():
     path_file = glob.iglob(r'C:/Users/kshet/Desktop/daily_progress/*')
@@ -62,3 +65,11 @@ def send_email(attachment):
 
     return 'Your email is sent sucessfully.'
     
+def move_file(attachment):
+    shutil.move(attachment, (r'C:/Users/kshet/Desktop/submitted_reports/'))
+    return True
+    
+
+
+if __name__ == '__main__':
+    main()  
