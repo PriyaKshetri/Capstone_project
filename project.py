@@ -8,6 +8,7 @@ from email.mime.base import MIMEBase
 import re
 from email import encoders
 import shutil
+from memory_profiler import profile
 
 #write a main function that calls related functions  
 def main():
@@ -17,7 +18,7 @@ def main():
     send_email(x)
     move_file(x)
     
-
+@profile
 def file_to_be_sent():
 
     #Return a list of files that matches the path specified in the function argument
