@@ -10,9 +10,17 @@ You can install it using the command:
 pip install watchdog (Make sure you are using upgraded version of pip)
 
 You will also need to import these required libraries:
+
+
 import os
+
 import sys
+
 import time
+
 from watchdog.observers import Observer
+
 from watchdog.events import FileSystemEventHandler
 
+I have used app password in my script, it is safe to use. App passwords are passwords that you can use for a certain application that is only going to work on your device. 
+Feel free to contribute to my program.
