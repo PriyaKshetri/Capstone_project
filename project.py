@@ -9,14 +9,17 @@ import re
 from email import encoders
 import shutil
 from memory_profiler import profile
+from dotenv import load_dotenv
 
 #define a main function to call on functions.
+
+@profile
 def main():
     x=file_to_be_sent()
     print(send_email(x))
     move_file(x)
 
-@profile    
+    
 def file_to_be_sent():
     path_file = glob.iglob(r'C:/Users/kshet/Desktop/daily_progress/*')
     attachment = max(path_file, key=os.path.getctime)
@@ -32,9 +35,9 @@ def validate_email(email):
         
 def send_email(attachment):
     subject = 'Progress report'
-    sender = 'kshetripriya934@gmail.com'
+    sender = os.getenv("email_address")
     receiver = 'kshettri.priya@gmail.com'
-    password = 'whmuwuktumxymrxi'  """Use App password to use an encrypted password that works only in your device. """
+    password = os.getenv("passwordd")  """Use App password to use an encrypted password that works only in your device. """
     body = ''' Hello!
 
     I have attached a complete report for today.
