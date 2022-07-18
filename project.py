@@ -1,3 +1,4 @@
+#import libraries
 import os
 import glob
 import smtplib
@@ -8,7 +9,7 @@ import re
 from email import encoders
 import shutil
 
-
+#define a main function to call on functions.
 def main():
     x=file_to_be_sent()
     print(send_email(x))
@@ -32,7 +33,7 @@ def send_email(attachment):
     subject = 'Progress report'
     sender = 'kshetripriya934@gmail.com'
     receiver = 'kshettri.priya@gmail.com'
-    password = 'whmuwuktumxymrxi'
+    password = 'whmuwuktumxymrxi'  """Use App password to use an encrypted password that works only in your device. """
     body = ''' Hello!
 
     I have attached a complete report for today.
@@ -54,6 +55,7 @@ def send_email(attachment):
         part = MIMEBase("application", "octet-stream")
         part.set_payload(attaches.read())
 
+    #encode using base64 to transport application
     encoders.encode_base64(part)
     part.add_header("Content-Disposition", "attachment", filename = os.path.basename(attachment))
     message.attach(part)
@@ -69,7 +71,7 @@ def send_email(attachment):
     return 'Your email is sent sucessfully.'
     
 
-
+#move the file to a folder after being sent as an email to keep track of sent files.
 def move_file(attachment):
     shutil.move(attachment, (r'C:/Users/kshet/Desktop/submitted_reports/'))
     return True
