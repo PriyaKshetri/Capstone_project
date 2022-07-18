@@ -8,6 +8,7 @@ from email.mime.base import MIMEBase
 import re
 from email import encoders
 import shutil
+from memory_profiler import profile
 
 #define a main function to call on functions.
 def main():
@@ -15,7 +16,7 @@ def main():
     print(send_email(x))
     move_file(x)
 
-    
+@profile    
 def file_to_be_sent():
     path_file = glob.iglob(r'C:/Users/kshet/Desktop/daily_progress/*')
     attachment = max(path_file, key=os.path.getctime)
