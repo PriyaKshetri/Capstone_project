@@ -11,7 +11,7 @@ import shutil
 
 def main():
     x=file_to_be_sent()
-    send_email(x)
+    print(send_email(x))
     move_file(x)
 
     
