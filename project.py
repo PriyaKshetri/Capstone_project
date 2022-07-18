@@ -21,3 +21,44 @@ def validate_email(email):
         return 'please use correct email'
         exit(1)
     return True
+
+def send_email(attachment):
+    subject = 'Progress report'
+    sender = 'kshetripriya934@gmail.com'
+    receiver = 'kshettri.priya@gmail.com'
+    password = 'pwarnucsmybzqxsx'
+    body = ''' Hello!
+
+    I have attached a complete report for today.
+    Hope you have a wonderful rest of the day.
+
+    Regards. 
+    Priya'''
+
+    validate_email(sender)
+    validate_email(receiver)
+    
+    message = MIMEMultipart()
+    message['From'] = sender
+    message['To'] = receiver
+    message['Subject'] = subject
+    message.attach(MIMEText(body,'plain'))
+    
+    with open(attachment, "rb") as attaches:
+        part = MIMEBase("application", "octet-stream")
+        part.set_payload(attaches.read())
+
+    encoders.encode_base64(part)
+    part.add_header("Content-Disposition", "attachment", filename = os.path.basename(attachment))
+    message.attach(part)
+
+    text = message.as_string()
+   
+    server = smtplib.SMTP_SSL("smtp.gmail.com", 465)
+    server.ehlo()
+    server.login(sender, password)
+    server.sendmail(sender, message['To'], text)
+    server.close()
+
+    return 'Your email is sent sucessfully.'
+    
