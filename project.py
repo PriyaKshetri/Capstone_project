@@ -16,7 +16,7 @@ load_dotenv()
 
 def main():
     x=file_to_be_sent()
-    print(send_email(x))
+    send_email(x)
     move_file(x)
 
    
@@ -53,16 +53,11 @@ def send_email(attachment):
     message['From'] = sender
     message['To'] = receiver
     message['Subject'] = subject
-    message.attach(MIMEText(body,'plain'))
+    message.attach(MIMEText(body))
     
     with open(attachment, "rb") as attaches:
         part = MIMEBase("application", "octet-stream")
         part.set_payload(attaches.read())
-
-    #encode using base64 to transport application
-    encoders.encode_base64(part)
-    part.add_header("Content-Disposition", "attachment", filename = os.path.basename(attachment))
-    message.attach(part)
 
     text = message.as_string()
    
