@@ -41,7 +41,9 @@ def send_email(attachment):
     sender = 'kshetripriya934@gmail.com'
     receiver = 'kshettri.priya@gmail.com'
     #generate an app password so that your password is not displayed.
-    password = 'pwarnucsmybzqxsx' """This password is generated from App password"""
+    password = 'pwarnucsmybzqxsx' 
+    """This password is generated from App password"""
+    
     body = ''' Hello!
 
     I have attached a complete report for today.
@@ -70,9 +72,12 @@ def send_email(attachment):
     part.add_header("Content-Disposition", "attachment", filename = os.path.basename(attachment))
     message.attach(part)
 
-    text = message.as_string() """send as string"""
+    text = message.as_string() 
+    """send as string"""
    
-    server = smtplib.SMTP_SSL("smtp.gmail.com", 465)"""specify the server with its parameters"""
+    server = smtplib.SMTP_SSL("smtp.gmail.com", 465)
+    """specify the server with its parameters"""
+
     server.ehlo()
     server.login(sender, password)
     server.sendmail(sender, message['To'], text)
