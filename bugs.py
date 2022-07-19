@@ -16,7 +16,7 @@ load_dotenv()
 
 def main():
     x=file_to_be_sent()
-    print(send_email(x))
+    send_email(x)
     move_file(x)
 
    
@@ -35,9 +35,9 @@ def validate_email(email):
         
 def send_email(attachment):
     subject = 'Progress report'
-    sender = os.getenv("email_address")
+    sender = 'kshetripriya9342gmail.com'
     receiver = 'kshettri.priya@gmail.com'
-    password = os.getenv("passwordd")  #Use App password to use an encrypted password that works only in your device.
+    password =  'whmuwuktumxymrxi'
     body = ''' Hello!
 
     I have attached a complete report for today.
@@ -54,27 +54,29 @@ def send_email(attachment):
     message['To'] = receiver
     message['Subject'] = subject
     message.attach(MIMEText(body, 'plain'))
+    
     with open(attachment, "rb") as attaches:
         part = MIMEBase("application", "octet-stream")
         part.set_payload(attaches.read())
-    #encode using base64 to transport application
+
     encoders.encode_base64(part)
     part.add_header("Content-Disposition", "attachment", filename = os.path.basename(attachment))
-    message.attach(part)
+    message.attach(part) 
 
     text = message.as_string()
+   
     server = smtplib.SMTP_SSL("smtp.gmail.com", 465)
     server.ehlo()
     server.login(sender, password)
     server.sendmail(sender, message['To'], text)
-    
+    server.close()
 
     return 'Your email is sent sucessfully.'
     
 
 #move the file to a folder after being sent as an email to keep track of sent files.
 def move_file(attachment):
-    shutil.move(attachment, ('C:/Users/kshet/Desktop/submitted_reports/'))
+    shutil.move(attachment, (r'C:/Users/kshet/Desktop/submitted_reports/'))
     return True
     
 

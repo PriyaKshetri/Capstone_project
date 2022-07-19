@@ -1,0 +1,4 @@
+#required installation of these:
+watchdog==2.1.9
+pytest==7.1.2
+pip install load_env
