@@ -10,21 +10,21 @@ from email import encoders
 import shutil
 from dotenv import load_dotenv
 
-#define a main function to call on functions.
+#load_dotenv() for reading environment variables
 load_dotenv()
 
-
+#define a main function to call on functions.
 def main():
     x=file_to_be_sent()
     print(send_email(x))
     move_file(x)
-
-   
+#create a function for specifying location of attachment
+#   
 def file_to_be_sent():
     path_file = glob.iglob('C:/Users/kshet/Desktop/daily_progress/*')
     attachment = max(path_file, key=os.path.getctime)
     return attachment
-
+#validate email address
 def validate_email(email):
     if not re.match(r'[a-z0-9\.-]+@[a-z]+\.[a-z]+', email):
         return 'please use correct email'
@@ -32,7 +32,7 @@ def validate_email(email):
     return True
     
     
-        
+#create a function to send email        
 def send_email(attachment):
     subject = 'Progress report'
     sender = os.getenv("email_address")
@@ -45,15 +45,16 @@ def send_email(attachment):
 
     Regards. 
     Priya'''
-
+    #call validate_email
     validate_email(sender)
     validate_email(receiver)
-    
+    #use MIMEMultipart for sending attachment
     message = MIMEMultipart()
     message['From'] = sender
     message['To'] = receiver
     message['Subject'] = subject
-    message.attach(MIMEText(body, 'plain'))
+    message.attach(MIMEText(body, 'plain')) 
+    #open attachment and specify MIMEbase
     with open(attachment, "rb") as attaches:
         part = MIMEBase("application", "octet-stream")
         part.set_payload(attaches.read())
@@ -61,14 +62,15 @@ def send_email(attachment):
     encoders.encode_base64(part)
     part.add_header("Content-Disposition", "attachment", filename = os.path.basename(attachment))
     message.attach(part)
-
+    #use as_string() to send text
     text = message.as_string()
     server = smtplib.SMTP_SSL("smtp.gmail.com", 465)
     server.ehlo()
     server.login(sender, password)
     server.sendmail(sender, message['To'], text)
+    server.close()
     
-
+    #return for execuion of email being sent
     return 'Your email is sent sucessfully.'
     
 
